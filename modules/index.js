@@ -33,7 +33,7 @@ function reducer (word, script, index, array) {
 core.map(string => console.log(string))
 
 core.map(string => {
-  let sequences = fs.readFileSync('sequences2.txt')
+  let sequences = fs.readFileSync(__dirname + '/../sequences.txt')
   sequences = sequences.toString().split('\n')
   sequences.splice(-1,1)
   sequences.map((x) => {

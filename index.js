@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 /*
  * This script will generate a wordlist of approximately 90k words
  * based in a given string
