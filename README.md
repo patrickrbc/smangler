@@ -1,4 +1,4 @@
-## Usages
+## Usage
 
 ```
 # node index.js [word]
