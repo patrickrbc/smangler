@@ -1,7 +1,7 @@
 # smangler
 This code will generate variants of a word following different strategies that are commonly used in order to create a password. This project does not aims to produce an exaustive output but a set of probable values instead. Some of the strategies used to generate are: capitalization, upper case, camel case and leet speaking.
 
-[![CircleCI](https://circleci.com/gh/patrickrbc/string-mangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/string-mangler)
+[![CircleCI](https://circleci.com/gh/patrickrbc/smangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/smangler)
 
 ## Usage
 
