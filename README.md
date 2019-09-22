@@ -3,10 +3,16 @@ This code will generate variants of a word following different strategies that a
 
 [![CircleCI](https://circleci.com/gh/patrickrbc/smangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/smangler)
 
+## Installation
+```
+npm install -g smangler
+```
+
+
 ## Usage
 
 ```
-$ node index.js -h
+$ smangler -h
 
   Usage: index [options]
 
@@ -17,7 +23,7 @@ $ node index.js -h
     -w, --words [string]   Words
     -o, --output [string]  Output file
 
-$ node index.js -w password
+$ smangler -w password
 password
 pAsSwOrD
 Password
@@ -30,7 +36,7 @@ p4ssw0rd
 @P455w0rD
 @@P455w0rD
 
-$ node index.js -w password | wc -l
+$ smangler -w password | wc -l
 8060
 
 ```
