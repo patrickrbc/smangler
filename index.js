@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 const opts    = require('commander')
 const fs      = require('fs')
@@ -10,7 +10,7 @@ module.exports = function () {
 
 function commandLine () {
   opts
-    .version('1.0.3')
+    .version('1.0.4')
     .option('-w, --words [string]', 'One or multiple words comma separated')
     .option('-o, --output [string]', 'Output file')
     .parse(process.argv);
