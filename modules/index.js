@@ -1,9 +1,10 @@
 const fs           = require('fs')
 const combinations = require('../util/combinations')
-const debug        = require('debug')('string-mangler:modules')
+const debug        = require('debug')('smangler:modules')
 
 /*
- * @return an array with all module names from this folder
+ * Load all modules from this folder
+ * @return {Object} an array with all modules
  */
 function load () {
 
@@ -50,11 +51,12 @@ function mangle (moduleArr, words = 'leet') {
 }
 
 /*
- * Generate variants of given strings appending common sequences to them
+ * Generate variants of given strings appending/prepending
+ * common sequences to them
  * @param {Object} array of strings
  * @return {Object} Set with final wordlist
  */
-function generate (core) {
+function addSequences (core) {
 
   var wordlist = new Set(core)
 
@@ -81,10 +83,22 @@ function generate (core) {
 
 /*
  * Print to file if [output] option is given, otherwise print to stdout
+ * @param {Object} program options
+ */
+function output (opts) {
+  let modules  = load()
+  let core     = mangle(modules, opts.words)
+  let wordlist = addSequences(core)
+
+  _generateOutput(wordlist, opts)
+}
+
+/*
+ * Write output from a wordlist
  * @param {Object} Set with generated wordlist
  * @param {Object} program options
  */
-function generateOutput (wordlist, opts) {
+function _generateOutput (wordlist, opts) {
 
   if (opts.test)
     return
@@ -103,17 +117,23 @@ function generateOutput (wordlist, opts) {
   stream.end()
 }
 
-
-module.exports = function (opts) {
+/*
+ * Get a wordlist Set from string of words comma separated
+ * @param {String} words
+ * @return {Object} Set of words
+ */
+function get (words) {
   let modules  = load()
-  let core     = mangle(modules, opts.words)
-  let wordlist = generate(core, opts)
+  let core     = mangle(modules, words)
+  let wordlist = addSequences(core)
 
-  generateOutput(wordlist, opts)
+  return wordlist
+}
 
-  return {
-    load,
-    mangle,
-    generate
-  }
+module.exports = {
+  addSequences,
+  get,
+  load,
+  mangle,
+  output,
 }

@@ -2,17 +2,28 @@
 
 const opts    = require('commander')
 const fs      = require('fs')
+const modules = require('./modules')
 
-opts
-  .version('1.0.0')
-  .option('-w, --words [string]', 'Words')
-  .option('-o, --output [string]', 'Output file')
-  .parse(process.argv);
+module.exports = function () {
+  return modules
+}()
 
-if (!opts.words)
-  return console.log(`
-    You need to provide at least one word as a parameter with -w.
-    Use --help or -h to learn more.
-    `)
+function commandLine () {
+  opts
+    .version('1.0.0')
+    .option('-w, --words [string]', 'Words')
+    .option('-o, --output [string]', 'Output file')
+    .parse(process.argv);
 
-const modules = require('./modules')(opts)
+  if (!opts.words) {
+    return console.log(`
+      You need to provide at least one word as a parameter with -w.
+      Use --help or -h to learn more.
+      `)
+  }
+
+  modules.output(opts)
+}
+
+if (require.main === module)
+  commandLine()

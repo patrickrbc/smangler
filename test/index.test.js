@@ -1,5 +1,5 @@
 
-const modules = require('../modules')({test: true})
+const modules = require('../modules')
 
 test('Loading modules', () => {
   expect(modules.load())
@@ -41,5 +41,5 @@ test('Generating mangled variants of multiple words', () => {
 })
 
 test('Generating final words with appended sequences w/o errors', () => {
-  expect(modules.generate(modules.load(), {test:true}))
+  expect(modules.output({ words: 'leet', test: true }))
 })
