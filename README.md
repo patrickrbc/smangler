@@ -20,7 +20,7 @@ $ smangler -h
 
     -h, --help             output usage information
     -V, --version          output the version number
-    -w, --words [string]   Words
+    -w, --words [string]   One or multiple words comma separated
     -o, --output [string]  Output file
 
 $ smangler -w password

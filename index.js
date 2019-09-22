@@ -10,8 +10,8 @@ module.exports = function () {
 
 function commandLine () {
   opts
-    .version('1.0.0')
-    .option('-w, --words [string]', 'Words')
+    .version('1.0.3')
+    .option('-w, --words [string]', 'One or multiple words comma separated')
     .option('-o, --output [string]', 'Output file')
     .parse(process.argv);
 
