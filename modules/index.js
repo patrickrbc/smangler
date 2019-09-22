@@ -1,7 +1,11 @@
 const fs           = require('fs')
 const combinations = require('../util/combinations')
+const debug        = require('debug')('string-mangler:modules')
 
-function loadModules () {
+/*
+ * @return an array with all module names from this folder
+ */
+function load () {
 
   var normalizedPath = require('path').join(__dirname, '.')
 
@@ -20,16 +24,21 @@ function loadModules () {
   return moduleArr
 }
 
-function loadStrings (moduleArr) {
+/*
+ * Generate variants of given strings according to a set of modules
+ * @param {Object} array of modules
+ * @param {Object} array of strings (seed)
+ * @return {Object} Set of strings that will be used to concat
+ */
+function mangle (moduleArr, words = 'leet') {
 
-  var core = []
+  var core = new Set()
+  var words = words.split(',')
 
-  // Process words
-  var words = process.argv[2].split(',')
   words.forEach(function (word, i) {
-    core.push(word)
+    core.add(word)
     combinations(moduleArr).forEach(function (executionList, i) {
-      core.push(executionList.reduce(reducer, word))
+      core.add(executionList.reduce(reducer, word))
     })
   })
 
@@ -40,11 +49,16 @@ function loadStrings (moduleArr) {
   return core
 }
 
+/*
+ * Generate variants of given strings appending common sequences to them
+ * @param {Object} array of strings
+ * @return {Object} Set with final wordlist
+ */
 function generate (core) {
 
-  core.map(string => console.log(string))
+  var wordlist = new Set(core)
 
-  core.map(string => {
+  for (let string of core) {
 
     let sequences = fs
       .readFileSync(__dirname + '/../sequences.txt')
@@ -53,14 +67,53 @@ function generate (core) {
 
     // append
     sequences.map((x) => {
-      console.log(string.concat(x))
+      wordlist.add(string.concat(x))
     })
 
     // prepend
     sequences.map((x) => {
-      console.log(x.toString().concat(string))
+      wordlist.add(x.toString().concat(string))
     })
-  })
+  }
+
+  return wordlist
 }
 
-generate(loadStrings(loadModules))
+/*
+ * Print to file if [output] option is given, otherwise print to stdout
+ * @param {Object} Set with generated wordlist
+ * @param {Object} program options
+ */
+function generateOutput (wordlist, opts) {
+
+  if (opts.test)
+    return
+
+  if (!opts || !opts.output) {
+    for (let item of wordlist)
+      console.log(item)
+    return
+  }
+
+  var stream = fs.createWriteStream(opts.output)
+
+  for (let item of wordlist)
+    stream.write(item + '\n')
+
+  stream.end()
+}
+
+
+module.exports = function (opts) {
+  let modules  = load()
+  let core     = mangle(modules, opts.words)
+  let wordlist = generate(core, opts)
+
+  generateOutput(wordlist, opts)
+
+  return {
+    load,
+    mangle,
+    generate
+  }
+}
