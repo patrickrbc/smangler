@@ -5,6 +5,13 @@
   "main": "index.js",
   "author": "Patrick Costa @patrickrbc",
   "license": "MIT",
+  "keywords": [
+    "password",
+    "wordlist",
+    "generator",
+    "mangler",
+    "brute-force"
+  ],
   "bin": {
     "smangler": "./index.js"
   },
