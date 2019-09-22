@@ -26,6 +26,6 @@ p4ssw0rd
 @@P455w0rD
 
 $ node index.js -w password | wc -l
-5220
+8060
 
 ```
