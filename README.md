@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/patrickrbc/string-mangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/string-mangler)
+
 ## Usage
 
 ```
