@@ -22,6 +22,8 @@ $ smangler -h
     -V, --version          output the version number
     -w, --words [string]   One or multiple words comma separated
     -o, --output [string]  Output file
+    -m, --min [number]     Minimum length
+    -M, --max [number]     Max length
 
 $ smangler -w password
 password
@@ -37,7 +39,7 @@ p4ssw0rd
 @@P455w0rD
 
 $ smangler -w password | wc -l
-8060
+64360
 
 ```
 
