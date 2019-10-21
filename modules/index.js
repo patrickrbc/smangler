@@ -82,13 +82,40 @@ function addSequences (core) {
 }
 
 /*
+ * Generate variants of given strings appending common separators
+ * @param {Object} array of strings
+ * @return {Object} Set with final wordlist
+ */
+function addSeparators (core) {
+
+  var wordlist = new Set(core)
+
+  for (let string of core) {
+
+    let separators = fs
+      .readFileSync(__dirname + '/../separators.txt')
+      .toString()
+      .split('\n')
+
+    // append
+    separators.map((x) => {
+      wordlist.add(string.concat(x))
+    })
+  }
+
+  return wordlist
+}
+
+/*
  * Print to file if [output] option is given, otherwise print to stdout
  * @param {Object} program options
  */
 function output (opts) {
   let modules  = load()
-  let core     = mangle(modules, opts)
-  let wordlist = addSequences(core)
+  let wordlist = mangle(modules, opts)
+
+  wordlist = addSeparators(wordlist)
+  wordlist = addSequences(wordlist)
 
   _generateOutput(wordlist, opts)
 }

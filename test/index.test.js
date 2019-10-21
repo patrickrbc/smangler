@@ -28,7 +28,8 @@ test('Generating mangled variants', () => {
       'leet',
       'l33t',
       'LEET',
-      'L33T'
+      'L33T',
+      'l&&t'
     ]))
 })
 
@@ -40,6 +41,7 @@ test('Generating mangled variants of multiple words', () => {
       'l33t',
       'LEET',
       'L33T',
+      'l&&t'
       'N3RD',
       'nerd',
       'b4n4n4',
