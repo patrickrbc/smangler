@@ -1,6 +1,6 @@
 {
   "name": "smangler",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Wordlist generator",
   "main": "index.js",
   "author": "Patrick Costa @patrickrbc",

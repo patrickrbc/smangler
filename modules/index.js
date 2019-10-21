@@ -28,13 +28,13 @@ function load () {
 /*
  * Generate variants of given strings according to a set of modules
  * @param {Object} array of modules
- * @param {Object} array of strings (seed)
+ * @param {Object} options
  * @return {Object} Set of strings that will be used to concat
  */
-function mangle (moduleArr, words = 'leet') {
+function mangle (moduleArr, opts) {
 
   var core = new Set()
-  var words = words.split(',')
+  var words = opts.words ? opts.words.split(',') : ['leet']
 
   words.forEach(function (word, i) {
     core.add(word)
@@ -87,7 +87,7 @@ function addSequences (core) {
  */
 function output (opts) {
   let modules  = load()
-  let core     = mangle(modules, opts.words)
+  let core     = mangle(modules, opts)
   let wordlist = addSequences(core)
 
   _generateOutput(wordlist, opts)
@@ -105,7 +105,8 @@ function _generateOutput (wordlist, opts) {
 
   if (!opts || !opts.output) {
     for (let item of wordlist)
-      console.log(item)
+      if (item.length >= opts.min && item.length <= opts.max)
+        console.log(item)
     return
   }
 
@@ -117,22 +118,8 @@ function _generateOutput (wordlist, opts) {
   stream.end()
 }
 
-/*
- * Get a wordlist Set from string of words comma separated
- * @param {String} words
- * @return {Object} Set of words
- */
-function get (words) {
-  let modules  = load()
-  let core     = mangle(modules, words)
-  let wordlist = addSequences(core)
-
-  return wordlist
-}
-
 module.exports = {
   addSequences,
-  get,
   load,
   mangle,
   output,

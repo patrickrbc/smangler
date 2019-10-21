@@ -10,9 +10,11 @@ module.exports = function () {
 
 function commandLine () {
   opts
-    .version('1.0.4')
+    .version('1.1.0')
     .option('-w, --words [string]', 'One or multiple words comma separated')
     .option('-o, --output [string]', 'Output file')
+    .option('-m, --min [number]', 'Minimum length', 0)
+    .option('-M, --max [number]', 'Max length', 80)
     .parse(process.argv);
 
   if (!opts.words) {

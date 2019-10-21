@@ -1,6 +1,12 @@
 
 const modules = require('../modules')
 
+var opts = {
+  words: 'leet',
+  min: 0,
+  max: 80
+}
+
 test('Loading modules', () => {
   expect(modules.load())
     .toEqual(expect.arrayContaining([
@@ -17,7 +23,7 @@ test('Loading modules', () => {
 })
 
 test('Generating mangled variants', () => {
-  expect(Array.from(modules.mangle(modules.load(), 'leet')))
+  expect(Array.from(modules.mangle(modules.load(), opts)))
     .toEqual(expect.arrayContaining([
       'leet',
       'l33t',
@@ -27,7 +33,8 @@ test('Generating mangled variants', () => {
 })
 
 test('Generating mangled variants of multiple words', () => {
-  expect(Array.from(modules.mangle(modules.load(), 'leet,nerd,banana')))
+  opts.words = 'leet,nerd,banana'
+  expect(Array.from(modules.mangle(modules.load(), opts)))
     .toEqual(expect.arrayContaining([
       'leet',
       'l33t',
