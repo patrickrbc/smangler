@@ -23,10 +23,8 @@ $ smangler -h
     -h, --help      Show this help message and exit.
     -v, --version   Show the version and exit.
     -w, --words [string]   One or multiple words comma separated
-    -o, --output [string]  Output file
     -m, --min [number]     Minimum length (default: 0)
     -M, --max [number]     Max length (default: 80)
-    -h, --help             output usage information
 
 $ smangler -w password
 password

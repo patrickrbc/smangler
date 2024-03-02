@@ -51,10 +51,8 @@ function commandLine() {
         -h, --help      Show this help message and exit.
         -v, --version   Show the version and exit.
         -w, --words [string]   One or multiple words comma separated
-        -o, --output [string]  Output file
         -m, --min [number]     Minimum length (default: ${options.min.default})
         -M, --max [number]     Max length (default: ${options.max.default})
-        -h, --help             output usage information
       `)
     return
   }
