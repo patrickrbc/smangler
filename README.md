@@ -1,5 +1,8 @@
 # smangler
-This code will generate variants of a word following different strategies that are commonly used in order to create a password. This project does not aims to produce an exaustive output but a set of probable values instead. Some of the strategies used to generate are: capitalization, upper case, camel case and leet speaking.
+Generate variants of a word following different strategies that are commonly
+used in order to create a password. This project does not aims to produce an
+exaustive output but a set of probable values instead. Some of the strategies
+used to generate are: capitalization, upper case, camel case and leet speaking.
 
 [![CircleCI](https://circleci.com/gh/patrickrbc/smangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/smangler)
 
@@ -14,16 +17,16 @@ npm install -g smangler
 ```
 $ smangler -h
 
-  Usage: index [options]
+  Usage: smangler [options]
 
   Options:
-
-    -h, --help             output usage information
-    -V, --version          output the version number
+    -h, --help      Show this help message and exit.
+    -v, --version   Show the version and exit.
     -w, --words [string]   One or multiple words comma separated
     -o, --output [string]  Output file
-    -m, --min [number]     Minimum length
-    -M, --max [number]     Max length
+    -m, --min [number]     Minimum length (default: 0)
+    -M, --max [number]     Max length (default: 80)
+    -h, --help             output usage information
 
 $ smangler -w password
 password
