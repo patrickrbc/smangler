@@ -1,7 +1,9 @@
+const {test} = require('node:test')
+const {expect} = require('expect')
 
 const modules = require('../modules')
 
-var opts = {
+const opts = {
   words: 'leet',
   min: 0,
   max: 80
