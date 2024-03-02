@@ -1,6 +1,5 @@
 const fs           = require('fs')
 const combinations = require('../util/combinations')
-const debug        = require('debug')('smangler:modules')
 
 /*
  * Load all modules from this folder
