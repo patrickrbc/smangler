@@ -65,7 +65,7 @@ function commandLine() {
     return
   }
 
-  modules.output(values)
+  modules.run(values)
 }
 
 if (require.main === module) commandLine()

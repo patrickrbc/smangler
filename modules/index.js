@@ -6,14 +6,14 @@ const combinations = require('../util/combinations')
  * @return {Object} an array with all modules
  */
 function load() {
-  var normalizedPath = require('path').join(__dirname, '.')
+  const normalizedPath = require('path').join(__dirname, '.')
 
-  var files = require('fs')
+  const files = require('fs')
     .readdirSync(normalizedPath)
     .filter(item => !/(^|\/)\.[^\/\.]/g.test(item))
 
   // Create an array with all modules
-  var moduleArr = []
+  const moduleArr = []
   files.forEach(function (file) {
     if (
       !fs.statSync(normalizedPath + '/' + file).isDirectory() &&
@@ -32,17 +32,17 @@ function load() {
  * @return {Object} Set of strings that will be used to concat
  */
 function mangle(moduleArr, opts) {
-  var core = new Set()
-  var words = opts.words ? opts.words.split(',') : ['leet']
+  const core = new Set()
+  const words = opts.words ? opts.words.split(',') : ['leet']
 
-  words.forEach(function (word, i) {
+  words.forEach(function (word) {
     core.add(word)
-    combinations(moduleArr).forEach(function (executionList, i) {
+    combinations(moduleArr).forEach(function (executionList) {
       core.add(executionList.reduce(reducer, word))
     })
   })
 
-  function reducer(word, script, index, array) {
+  function reducer(word, script) {
     return require('./' + script)(word)
   }
 
@@ -56,10 +56,10 @@ function mangle(moduleArr, opts) {
  * @return {Object} Set with final wordlist
  */
 function addSequences(core) {
-  var wordlist = new Set(core)
+  const wordlist = new Set(core)
 
-  for (let string of core) {
-    let sequences = fs
+  for (const string of core) {
+    const sequences = fs
       .readFileSync(__dirname + '/../sequences.txt')
       .toString()
       .split('\n')
@@ -84,10 +84,10 @@ function addSequences(core) {
  * @return {Object} Set with final wordlist
  */
 function addSeparators(core) {
-  var wordlist = new Set(core)
+  const wordlist = new Set(core)
 
-  for (let string of core) {
-    let separators = fs
+  for (const string of core) {
+    const separators = fs
       .readFileSync(__dirname + '/../separators.txt')
       .toString()
       .split('\n')
@@ -102,28 +102,17 @@ function addSeparators(core) {
 }
 
 /*
- * Print to file if [output] option is given, otherwise print to stdout
- * @param {Object} program options
+ * @param {Object} opts
  */
-function output(opts) {
-  let modules = load()
+function run(opts) {
+  const modules = load()
+
   let wordlist = mangle(modules, opts)
 
   wordlist = addSeparators(wordlist)
   wordlist = addSequences(wordlist)
 
-  _generateOutput(wordlist, opts)
-}
-
-/*
- * Write output from a wordlist
- * @param {Object} Set with generated wordlist
- * @param {Object} program options
- */
-function _generateOutput(wordlist, opts) {
-  if (opts.test) return
-
-  for (let item of wordlist) {
+  for (const item of wordlist) {
     if (item.length >= opts.min && item.length <= opts.max) {
       console.log(item)
     }
@@ -134,5 +123,5 @@ module.exports = {
   addSequences,
   load,
   mangle,
-  output,
+  run,
 }

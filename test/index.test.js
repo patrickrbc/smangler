@@ -52,5 +52,5 @@ test('Generating mangled variants of multiple words', () => {
 })
 
 test('Generating final words with appended sequences w/o errors', () => {
-  expect(modules.output({ words: 'leet', test: true }))
+  expect(modules.run({ words: 'leet', test: true }))
 })

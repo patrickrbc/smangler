@@ -1,7 +1,7 @@
 function alternate(string) {
 
   string = string.split('')
-  for (var i = 0, len = string.length; i < len; i++) {
+  for (let i = 0, len = string.length; i < len; i++) {
     if (i % 2 !== 0)
       string[i] = string[i].toUpperCase()
   }
