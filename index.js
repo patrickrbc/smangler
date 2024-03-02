@@ -1,31 +1,42 @@
 #!/usr/bin/env node
 
-const opts    = require('commander')
-const fs      = require('fs')
 const modules = require('./modules')
+const {parseArgs} = require('node:util')
 
-module.exports = function () {
-  return modules
-}()
+module.exports = modules
 
-function commandLine () {
-  opts
-    .version('1.1.0')
-    .option('-w, --words [string]', 'One or multiple words comma separated')
-    .option('-o, --output [string]', 'Output file')
-    .option('-m, --min [number]', 'Minimum length', 0)
-    .option('-M, --max [number]', 'Max length', 80)
-    .parse(process.argv);
+function commandLine() {
+  const options = {
+    words: {
+      type: 'string',
+      short: 'w',
+    },
+    min: {
+      type: 'string',
+      short: 'm',
+      default: '0',
+    },
+    max: {
+      type: 'string',
+      short: 'M',
+      default: '80',
+    },
+    output: {
+      type: 'string',
+      short: 'o',
+    },
+  }
 
-  if (!opts.words) {
+  const {values} = parseArgs({options})
+
+  if (!values.words) {
     return console.log(`
       You need to provide at least one word as a parameter with -w.
       Use --help or -h to learn more.
       `)
   }
 
-  modules.output(opts)
+  modules.output(values)
 }
 
-if (require.main === module)
-  commandLine()
+if (require.main === module) commandLine()

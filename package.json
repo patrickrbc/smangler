@@ -16,7 +16,6 @@
     "smangler": "./index.js"
   },
   "dependencies": {
-    "commander": "^2.9.0",
     "debug": "^4.1.1"
   },
   "devDependencies": {
