@@ -16,13 +16,15 @@ function load() {
 
   // Create an array with all modules
   const moduleArr = []
-  files.forEach(function (file) {
+
+  for (const file of files) {
     if (
       !fs.statSync(normalizedPath + '/' + file).isDirectory() &&
       file !== 'index.js'
-    )
+    ) {
       moduleArr.push(file)
-  })
+    }
+  }
 
   return moduleArr
 }
@@ -37,12 +39,13 @@ function mangle(moduleArr, opts) {
   const core = new Set()
   const words = opts.words ? opts.words.split(',') : ['leet']
 
-  words.forEach(function (word) {
+  for (const word of words) {
     core.add(word)
-    combinations(moduleArr).forEach(function (executionList) {
+
+    for (const executionList of combinations(moduleArr)) {
       core.add(executionList.reduce(reducer, word))
-    })
-  })
+    }
+  }
 
   function reducer(word, script) {
     return require('./' + script)(word)
@@ -66,15 +69,10 @@ function addSequences(core) {
       .toString()
       .split('\n')
 
-    // append
-    sequences.map(x => {
-      wordlist.add(string.concat(x))
-    })
-
-    // prepend
-    sequences.map(x => {
-      wordlist.add(x.toString().concat(string))
-    })
+    for (const chunk of sequences) {
+      wordlist.add(string.concat(chunk))
+      wordlist.add(chunk.toString().concat(string))
+    }
   }
 
   return wordlist
@@ -94,10 +92,9 @@ function addSeparators(core) {
       .toString()
       .split('\n')
 
-    // append
-    separators.map(x => {
-      wordlist.add(string.concat(x))
-    })
+    for (const chunk of separators) {
+      wordlist.add(string.concat(chunk))
+    }
   }
 
   return wordlist
