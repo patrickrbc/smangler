@@ -1,4 +1,6 @@
 const fs = require('fs')
+const path = require('path')
+
 const combinations = require('../util/combinations')
 
 /*
@@ -6,9 +8,9 @@ const combinations = require('../util/combinations')
  * @return {Object} an array with all modules
  */
 function load() {
-  const normalizedPath = require('path').join(__dirname, '.')
+  const normalizedPath = path.join(__dirname, '.')
 
-  const files = require('fs')
+  const files = fs
     .readdirSync(normalizedPath)
     .filter(item => !/(^|\/)\.[^\/\.]/g.test(item))
 
