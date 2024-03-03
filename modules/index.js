@@ -65,7 +65,7 @@ function addSequences(core) {
 
   for (const string of core) {
     const sequences = fs
-      .readFileSync(__dirname + '/../sequences.txt')
+      .readFileSync(__dirname + '/../etc/sequences.txt')
       .toString()
       .split('\n')
 
@@ -88,7 +88,7 @@ function addSeparators(core) {
 
   for (const string of core) {
     const separators = fs
-      .readFileSync(__dirname + '/../separators.txt')
+      .readFileSync(__dirname + '/../etc/separators.txt')
       .toString()
       .split('\n')
 
