@@ -1,4 +1,5 @@
 # smangler
+
 Generate variants of a word following different strategies that are commonly
 used in order to create a password. This project does not aims to produce an
 exaustive output but a set of probable values instead. Some of the strategies
@@ -7,10 +8,10 @@ used to generate are: capitalization, upper case, camel case and leet speaking.
 [![CircleCI](https://circleci.com/gh/patrickrbc/smangler.svg?style=svg)](https://circleci.com/gh/patrickrbc/smangler)
 
 ## Installation
+
 ```
 npm install -g smangler
 ```
-
 
 ## Usage
 
@@ -50,7 +51,16 @@ If the `-w` option is not provided, the program will read from the standard inpu
 $ cat interesting_words.txt | smangler
 ```
 
+It can also be used an imported library:
+
+```javascript
+const smangler = require('smangler')
+
+console.log(smangler({words: 'password', max: 4}))
+```
+
 ## License
+
 MIT License
 
 Copyright (c) 2019 patrickrbc

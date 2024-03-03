@@ -111,6 +111,18 @@ function run(opts) {
   wordlist = addSeparators(wordlist)
   wordlist = addSequences(wordlist)
 
+  if (opts.lib) {
+    const result = []
+
+    for (const item of wordlist) {
+      if (item.length >= opts.min && item.length <= opts.max) {
+        result.push(item)
+      }
+    }
+
+    return result
+  }
+
   for (const item of wordlist) {
     if (item.length >= opts.min && item.length <= opts.max) {
       console.log(item)

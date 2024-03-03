@@ -5,40 +5,38 @@ const {parseArgs} = require('node:util')
 const version = require('./package.json').version
 const readline = require('readline')
 
-module.exports = modules
+const options = {
+  version: {
+    type: 'boolean',
+    short: 'v',
+  },
+  help: {
+    type: 'boolean',
+    short: 'h',
+  },
+  words: {
+    type: 'string',
+    short: 'w',
+  },
+  min: {
+    type: 'string',
+    short: 'm',
+    default: '0',
+  },
+  max: {
+    type: 'string',
+    short: 'M',
+    default: '80',
+  },
+  output: {
+    type: 'string',
+    short: 'o',
+  },
+}
+
+const {values} = parseArgs({options})
 
 function commandLine() {
-  const options = {
-    version: {
-      type: 'boolean',
-      short: 'v',
-    },
-    help: {
-      type: 'boolean',
-      short: 'h',
-    },
-    words: {
-      type: 'string',
-      short: 'w',
-    },
-    min: {
-      type: 'string',
-      short: 'm',
-      default: '0',
-    },
-    max: {
-      type: 'string',
-      short: 'M',
-      default: '80',
-    },
-    output: {
-      type: 'string',
-      short: 'o',
-    },
-  }
-
-  const {values} = parseArgs({options})
-
   if (values.version) {
     console.log(version)
     return
@@ -79,4 +77,13 @@ function processFromStdin(values) {
   })
 }
 
-if (require.main === module) commandLine()
+if (require.main === module) {
+  commandLine()
+} else {
+  module.exports = opts =>
+    modules.run({
+      ...values,
+      ...opts,
+      lib: true,
+    })
+}
