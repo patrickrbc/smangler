@@ -13,7 +13,7 @@
     "brute-force"
   ],
   "bin": {
-    "smangler": "./index.js"
+    "smangler": "index.js"
   },
   "scripts": {
     "test": "node --test"
