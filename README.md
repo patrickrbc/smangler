@@ -44,6 +44,12 @@ $ smangler -w password | wc -l
 
 ```
 
+If the `-w` option is not provided, the program will read from the standard input.
+
+```
+$ cat interesting_words.txt | smangler
+```
+
 ## License
 MIT License
 

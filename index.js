@@ -3,6 +3,7 @@
 const modules = require('./modules')
 const {parseArgs} = require('node:util')
 const version = require('./package.json').version
+const readline = require('readline')
 
 module.exports = modules
 
@@ -57,15 +58,25 @@ function commandLine() {
     return
   }
 
-  if (!values.words) {
-    console.log(`
-      You need to provide at least one word as a parameter with -w.
-      Use --help or -h to learn more.
-      `)
+  if (values.words) {
+    modules.run(values)
     return
   }
 
-  modules.run(values)
+  processFromStdin(values)
+}
+
+function processFromStdin(values) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+  })
+
+  rl.on('line', line => {
+    modules.run({
+      ...values,
+      words: line.trim(),
+    })
+  })
 }
 
 if (require.main === module) commandLine()
